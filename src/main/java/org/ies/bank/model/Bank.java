@@ -3,6 +3,7 @@ package org.ies.bank.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,4 +26,25 @@ public class Bank {
 
     }
 
+    public List<Account> getAccountsByCustomerNif(String nif) {
+        boolean customerExists = false;
+        for (Customer customer : customers) {
+            if (customer.getNif().equals(nif)) {
+                customerExists = true;
+            }
+        }
+
+        if (!customerExists) {
+            return null;
+        }
+
+        List<Account> customerAccounts = new ArrayList<>();
+        for (Account account : accountsByIban.values()) {
+            if (account.getNif().equals(nif)) {
+                customerAccounts.add(account);
+            }
+        }
+        return customerAccounts;
+    }
 }
+
