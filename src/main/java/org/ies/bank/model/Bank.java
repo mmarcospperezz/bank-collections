@@ -63,5 +63,30 @@ public class Bank {
         }
     }
 
+    public void transfer(String originIban, String destinationIban, double amount) {
+        if (!accountsByIban.containsKey(originIban)) {
+            System.out.println("No existe la cuenta origen");
+            return;
+        }
+
+        if (!accountsByIban.containsKey(destinationIban)) {
+            System.out.println("No existe la cuenta destino");
+            return;
+        }
+
+        Account originAccount = accountsByIban.get(originIban);
+        Account destinationAccount = accountsByIban.get(destinationIban);
+
+
+        if (originAccount.getSaldo() < amount) {
+            System.out.println("No hay saldo suficiente en origen");
+            return;
+        }
+
+        originAccount.setSaldo(originAccount.getSaldo() - amount);
+        destinationAccount.setSaldo(destinationAccount.getSaldo() + amount);
+    }
 }
+
+
 
