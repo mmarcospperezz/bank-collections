@@ -86,6 +86,20 @@ public class Bank {
         originAccount.setSaldo(originAccount.getSaldo() - amount);
         destinationAccount.setSaldo(destinationAccount.getSaldo() + amount);
     }
+
+    public List<Account> getAccountsByZipCode(int zipCode) {
+        List<Account> accountsInZipCode = new ArrayList<>();
+        for (Customer customer : customers) {
+            if (customer.getZipCode() == zipCode) {
+                for (Account account : accountsByIban.values()) {
+                    if (account.getNif().equals(customer.getNif())) {
+                        accountsInZipCode.add(account);
+                    }
+                }
+            }
+        }
+        return accountsInZipCode;
+    }
 }
 
 
